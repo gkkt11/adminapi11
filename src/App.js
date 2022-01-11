@@ -28,7 +28,7 @@ function App() {
               </Routes>
               <Routes>
                 <Route path="/user/:userId" element={<User/>  }/>
-               
+
               </Routes>
               <Routes>
                 <Route path="/newUser" element={<NewUser/>  }/>

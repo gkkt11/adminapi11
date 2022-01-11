@@ -1,15 +1,21 @@
 import "./userList.css";
 import {DataGrid} from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
-import { userRows } from "../../dummyData";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteUser, getUsers } from "../../redux/apiCalls";
 
 export default function UserList (){
-    const [data, setData] = useState(userRows);
+    const dispatch = useDispatch
+    const users = useSelector((state) => state.user.users);
+
+useEffect(() =>{
+    dispatch(getUsers());
+}, [dispatch]);
 
     const handleDelete = (id) => {
-      setData(data.filter((item) => item.id !== id));
+      deleteUser(id, dispatch);
     };
     
     const columns = [
@@ -56,7 +62,7 @@ export default function UserList (){
     return(
         <div className="userList">
             <DataGrid
-                rows={userRows}
+                rows={users}
                 disableSelectionOnClick
                 columns={columns}
                 pageSize={8}
